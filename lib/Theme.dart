@@ -8,6 +8,7 @@ class Colors {
   static const Color jobTitle = const Color(0xFFFFFFFF);
   static const Color jobDescription = const Color(0x66FFFFFF);
   static const Color jobLocation = const Color(0x66FFFFFF);
+  static const Color background = const Color(0x66E7E8EC);
 }
 
 class TextStyles {
