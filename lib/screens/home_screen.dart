@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hack19/hack19.dart';
+import 'package:newstter/screens/Jobs/JobList_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -100,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: <Widget>[Text("Recommendations Page")],
           ),
           Column(
-            children: <Widget>[Text("Jobs Page")],
+            children: [JobList()],
           ),
         ],
       );
