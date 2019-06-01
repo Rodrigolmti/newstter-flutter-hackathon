@@ -4,21 +4,22 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class DetailScreen extends StatelessWidget {
 
-  final FeedItem item;
+  final String title;
+  final String url;
 
-  DetailScreen(this.item);
+  DetailScreen(this.title, this.url);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
-        title: Text(item.title),
+        title: Text(title),
       ),
       body: WebView(
         key: UniqueKey(),
         javascriptMode: JavascriptMode.unrestricted,
-        initialUrl: item.link,
+        initialUrl: url,
       ),
     );
   }

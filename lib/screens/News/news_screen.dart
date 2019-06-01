@@ -43,7 +43,7 @@ class _NewsScreenState extends State<NewsScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DetailScreen(item),
+              builder: (context) => DetailScreen(item.title, item.link),
             ),
           );
         },
