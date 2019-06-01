@@ -33,18 +33,17 @@ class _NewsScreenState extends State<NewsScreen> {
           itemBuilder: (BuildContext ctxt, int index) {
             return _newsCard(
               articles[index],
-              false,
             );
           },
         ),
       );
 
-  Widget _newsCard(FeedItem item, bool favorited) => GestureDetector(
+  Widget _newsCard(FeedItem item) => GestureDetector(
         onTap: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DetailScreen(item),
+              builder: (context) => DetailScreen(item.title, item.link),
             ),
           );
         },
@@ -76,25 +75,13 @@ class _NewsScreenState extends State<NewsScreen> {
                 padding: const EdgeInsets.only(
                   top: 8.0,
                   left: 8.0,
-                  right: 16.0,
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      _getPostOrigin(item.link),
-                      style: TextStyle(
-                        fontSize: 11.0,
-                        color: _getPostOriginColor(item.link),
-                      ),
-                    ),
-                    Container(
-                      child: Icon(
-                        Icons.favorite_border,
-                        color: Colors.blueGrey,
-                      ),
-                    ),
-                  ],
+                child: Text(
+                  _getPostOrigin(item.link),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: Colors.blueGrey,
+                  ),
                 ),
               ),
               Padding(
@@ -102,7 +89,7 @@ class _NewsScreenState extends State<NewsScreen> {
                 child: Text(
                   item.title,
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -190,21 +177,6 @@ class _NewsScreenState extends State<NewsScreen> {
     }
 
     return 'None';
-  }
-
-  Color _getPostOriginColor(String url) {
-    final postOrigin = _getPostOrigin(url);
-
-    switch (postOrigin) {
-      case 'Medium':
-        return Colors.green;
-      case 'Stack Overflow':
-        return Colors.orange;
-      case 'GitHub':
-        return Colors.blueAccent;
-      default:
-        return Colors.black;
-    }
   }
 
   @override

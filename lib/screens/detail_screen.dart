@@ -3,19 +3,20 @@ import 'package:hack19/src/FeedItem.dart' show FeedItem;
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class DetailScreen extends StatelessWidget {
-  final FeedItem item;
+  final String title;
+  final String url;
 
-  DetailScreen(this.item);
+  DetailScreen(this.title, this.url);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.red,
-          title: Text(item.title),
+          title: Text(title),
         ),
         body: WebviewScaffold(
-            url: item.link,
+            url: url,
             withZoom: true,
             withLocalStorage: true,
             hidden: true,
