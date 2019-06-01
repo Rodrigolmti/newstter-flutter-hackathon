@@ -177,6 +177,13 @@ class _NewsScreenState extends State<NewsScreen> {
   }
 
   @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
+
+  @override
   void dispose() {
     super.dispose();
   }
