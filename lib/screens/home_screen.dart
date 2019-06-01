@@ -91,11 +91,19 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Image.network(
-                item.image ??
-                    'https://cdn-images-1.medium.com/max/1600/1*6xT0ZOACZCdy_61tTJ3r1Q.png',
-                fit: BoxFit.cover,
-              ),
+              item.image != null && item.image.isNotEmpty
+                  ? Image.network(
+                      item.image,
+                      fit: BoxFit.cover,
+                    )
+                  : Image(
+                      image: AssetImage(
+                        _getImagePath(item.link),
+                      ),
+                    ),
+              // : Image(
+              //     _getImagePath(item.link),
+              //   ),
               Padding(
                 padding: const EdgeInsets.only(
                   top: 8.0,
@@ -111,11 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: <Widget>[
-                    Text(item.title),
-                  ],
-                ),
+                child: Text(item.title),
               ),
             ],
           ),
@@ -165,6 +169,21 @@ class _HomeScreenState extends State<HomeScreen> {
     final job = await fetcher.fetch();
 
     this.setState(() => {jobs = job.items});
+  }
+
+  String _getImagePath(String url) {
+    final postOrigin = _getPostOrigin(url);
+
+    switch (postOrigin) {
+      case 'Medium':
+        return 'assets/medium.jpeg';
+      case 'Stack Overflow':
+        return 'assets/stack_overflow.png';
+      case 'GitHub':
+        return 'assets/github.jpg';
+      default:
+        return 'assets/medium.jpeg';
+    }
   }
 
   String _getPostOrigin(String url) {
