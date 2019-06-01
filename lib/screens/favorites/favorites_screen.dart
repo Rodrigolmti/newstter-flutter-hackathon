@@ -5,22 +5,20 @@ import 'package:hack19/src/FeedItem.dart' show FeedItem;
 import 'package:newstter/data/database.dart';
 import 'package:newstter/screens/detail_screen.dart';
 
-class NewsScreen extends StatefulWidget {
-  const NewsScreen() : super();
+class FavoritesScreen extends StatefulWidget {
+  const FavoritesScreen() : super();
 
   @override
-  State<NewsScreen> createState() => _NewsScreenState();
+  State<FavoritesScreen> createState() => _FavoritesScreenState();
 }
 
-class _NewsScreenState extends State<NewsScreen> {
+class _FavoritesScreenState extends State<FavoritesScreen> {
   List<FeedItem> articles = [];
-  List<FeedItem> favorites = [];
   bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _getNews();
     _getFavorites();
   }
 
@@ -36,13 +34,12 @@ class _NewsScreenState extends State<NewsScreen> {
           itemBuilder: (BuildContext ctxt, int index) {
             return _newsCard(
               articles[index],
-              favorites.where((x) => x.link == articles[index].link).isNotEmpty,
             );
           },
         ),
       );
 
-  Widget _newsCard(FeedItem item, bool favorited) => GestureDetector(
+  Widget _newsCard(FeedItem item) => GestureDetector(
         onTap: () {
           Navigator.push(
             context,
@@ -76,6 +73,7 @@ class _NewsScreenState extends State<NewsScreen> {
                 padding: const EdgeInsets.only(
                   top: 8.0,
                   left: 8.0,
+                  right: 16.0,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,22 +83,6 @@ class _NewsScreenState extends State<NewsScreen> {
                       style: TextStyle(
                         fontSize: 11.0,
                         color: _getPostOriginColor(item.link),
-                      ),
-                    ),
-                    FlatButton(
-                      onPressed: () {
-                        if (favorited) {
-                          DBProvider.db.deleteFavoriteByLink(item.link);
-                        } else {
-                          DBProvider.db.addFavoriteFeed(item);
-                        }
-                      },
-                      padding: EdgeInsets.all(0.0),
-                      child: Container(
-                        child: Icon(
-                          favorited ? Icons.favorite : Icons.favorite_border,
-                          color: favorited ? Colors.red : Colors.blueGrey,
-                        ),
                       ),
                     ),
                   ],
@@ -122,57 +104,6 @@ class _NewsScreenState extends State<NewsScreen> {
       );
 
   Widget _getLoadingWidget() => Center(child: CircularProgressIndicator());
-
-  void _getNews() {
-    _getMediumPosts();
-    _getMediumFlutterCommunity();
-    _getMediumDartLang();
-    _getStackoverflowFlutter();
-    _getStackoverflowDart();
-    _getGitHubPullIssues();
-    _getGitHubPullRequests();
-    this.setState(() => {
-          isLoading = false,
-        });
-  }
-
-  void _fetchItems(String url) async {
-    final fetcher = FeedFetcher(url);
-    final feed = await fetcher.fetch();
-
-    this.setState(() => {
-          articles.addAll(feed.items),
-          // articles.shuffle(),
-        });
-  }
-
-  void _getMediumPosts() {
-    _fetchItems('https://medium.com/feed/flutter');
-  }
-
-  void _getMediumFlutterCommunity() {
-    _fetchItems('https://medium.com/feed/flutter-community');
-  }
-
-  void _getMediumDartLang() {
-    _fetchItems('https://medium.com/feed/dartlang');
-  }
-
-  void _getStackoverflowFlutter() {
-    _fetchItems('https://stackoverflow.com/feeds/tag/flutter');
-  }
-
-  void _getStackoverflowDart() {
-    _fetchItems('https://stackoverflow.com/feeds/tag/dart');
-  }
-
-  void _getGitHubPullRequests() {
-    _fetchItems('http://pullfeed.co/feeds/flutter/flutter');
-  }
-
-  void _getGitHubPullIssues() {
-    _fetchItems('https://rsshub.app/github/issue/flutter/flutter');
-  }
 
   String _getImagePath(String url) {
     final postOrigin = _getPostOrigin(url);
@@ -218,21 +149,9 @@ class _NewsScreenState extends State<NewsScreen> {
 
   void _getFavorites() async {
     final list = await DBProvider.db.getAllFavorites();
-    print(list);
     this.setState(() => {
-          favorites = list,
+          articles = list,
+          isLoading = false,
         });
-  }
-
-  @override
-  void setState(fn) {
-    if (mounted) {
-      super.setState(fn);
-    }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }

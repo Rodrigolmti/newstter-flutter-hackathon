@@ -3,6 +3,7 @@ import 'package:hack19/hack19.dart';
 import 'package:newstter/screens/Jobs/JobList_screen.dart';
 import 'package:hack19/src/FeedItem.dart' show FeedItem;
 import 'package:newstter/screens/News/news_screen.dart';
+import 'package:newstter/screens/favorites/favorites_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -65,9 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildBody() => TabBarView(
         children: <Widget>[
           NewsScreen(),
-          Column(
-            children: <Widget>[Text("Recommendations Page")],
-          ),
+          FavoritesScreen(),
           Column(
             children: [JobList()],
           ),
@@ -79,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _getJobsPosts() async {
     final fetcher =
-        FeedFetcher('"https://stackoverflow.com/jobs/feed?q=flutter"');
+        FeedFetcher('https://stackoverflow.com/jobs/feed?q=flutter');
     final job = await fetcher.fetch();
 
     this.setState(() => {jobs = job.items});

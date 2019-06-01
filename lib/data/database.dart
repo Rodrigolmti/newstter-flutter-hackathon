@@ -30,7 +30,7 @@ class DBProvider {
           "title TEXT,"
           "link TEXT,"
           "image TEXT,"
-          "content TEXT,"
+          "content TEXT"
           ")");
     });
   }
@@ -57,8 +57,8 @@ class DBProvider {
     return list;
   }
 
-  deleteFavoriteById(int id) async {
+  deleteFavoriteByLink(String link) async {
     final db = await database;
-    return db.delete("Feed", where: "id = ?", whereArgs: [id]);
+    return db.delete("Feed", where: "link = ?", whereArgs: [link]);
   }
 }
