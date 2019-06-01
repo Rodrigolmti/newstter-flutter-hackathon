@@ -10,7 +10,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   List<FeedItem> articles = [];
+  List<FeedItem> jobs = [];
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +32,11 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     _getMediumPosts();
+    _getJobsPosts();
   }
 
-  Widget _buildAppBar() => PreferredSize(
+  Widget _buildAppBar() =>
+      PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight + 30),
         child: Container(
           color: Colors.red,
@@ -62,7 +66,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
 
-  Widget _buildBody() => TabBarView(
+  Widget _buildBody() =>
+      TabBarView(
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -84,7 +89,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       );
 
-  Widget _newsCard(FeedItem item) => GestureDetector(
+  Widget _newsCard(FeedItem item) =>
+      GestureDetector(
         onTap: () {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => DetailScreen()));
@@ -129,10 +135,17 @@ class _HomeScreenState extends State<HomeScreen> {
     final feed = await fetcher.fetch();
 
     this.setState(() => {
-          articles = feed.items,
-        });
-    // for (var feedItem in feed.items) {
-    //   print(feedItem.title);
-    // }
+    articles = feed.items,
+    });
+  }
+
+  void _getJobsPosts() async {
+    final fetcher = FeedFetcher(
+        '"https://stackoverflow.com/jobs/feed?q=flutter"');
+    final job = await fetcher.fetch();
+
+    this.setState(() => {
+      jobs = job.items
+    });
   }
 }
