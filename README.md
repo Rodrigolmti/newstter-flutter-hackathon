@@ -1,6 +1,8 @@
 # newstter
 
-A flutter application for the hackaton event 
+[![Codemagic build status](https://api.codemagic.io/apps/5cf27f8bf4cf640012672525/5cf27f8bf4cf640012672524/status_badge.svg)](https://codemagic.io/apps/5cf27f8bf4cf640012672525/5cf27f8bf4cf640012672524/latest_build)
+
+A flutter application for the hackathon event 
 
 ## Getting Started
 

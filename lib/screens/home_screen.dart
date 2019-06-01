@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newstter/data/news_repository.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -6,6 +7,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  final NewsRepository newsRepository = NewsRepositoryImpl();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +19,16 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildAppBar() => PreferredSize(
+  @override
+  void initState() {
+    super.initState();
+    newsRepository.getFeedFromMedium().then((posts) {
+      posts.forEach((post) =>   print(post.title));
+    });
+  }
+
+  Widget _buildAppBar() =>
+      PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight + 30),
         child: Container(
           color: Colors.red,
@@ -45,7 +58,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
 
-  Widget _buildBody() => TabBarView(
+  Widget _buildBody() =>
+      TabBarView(
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
