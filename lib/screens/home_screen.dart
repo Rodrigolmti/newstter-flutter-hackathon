@@ -39,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: <Widget>[
                 new Expanded(child: new Container()),
                 TabBar(
+                  indicatorColor: Colors.white,
                   tabs: [
                     Tab(
                       icon: Icon(Icons.book),
@@ -51,6 +52,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     Tab(
                       icon: Icon(Icons.work),
                       text: 'Jobs',
+                    ),
+                    Tab(
+                      icon: Icon(Icons.settings),
+                      text: 'Settings',
                     ),
                   ],
                 ),
@@ -78,6 +83,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Column(
             children: <Widget>[Text("Jobs Page")],
+          ),
+          Column(
+            children: <Widget>[Text("Settings Page")],
           ),
         ],
       );

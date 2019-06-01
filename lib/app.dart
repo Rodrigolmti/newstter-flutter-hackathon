@@ -16,7 +16,7 @@ class _NewstterAppState extends State<NewstterApp> {
         primarySwatch: Colors.indigo,
       ),
       home: DefaultTabController(
-        length: 3,
+        length: 4,
         child: HomeScreen(),
       ),
     );
