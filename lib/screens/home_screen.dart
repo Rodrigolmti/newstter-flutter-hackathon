@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:newstter/data/news_repository.dart';
 import 'package:hack19/hack19.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -8,8 +7,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final NewsRepository newsRepository = NewsRepositoryImpl();
-
   final articles = [];
 
   @override
@@ -26,10 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     _getMediumPosts();
-
-    newsRepository.getFeedFromMedium().then((posts) {
-      posts.forEach((post) => print(post.title));
-    });
   }
 
   Widget _buildAppBar() => PreferredSize(
