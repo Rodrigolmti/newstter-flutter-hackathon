@@ -41,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: <Widget>[
                 new Expanded(child: new Container()),
                 TabBar(
+                  indicatorColor: Colors.white,
                   tabs: [
                     Tab(
                       icon: Icon(Icons.book),
@@ -53,6 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     Tab(
                       icon: Icon(Icons.work),
                       text: 'Jobs',
+                    ),
+                    Tab(
+                      icon: Icon(Icons.settings),
+                      text: 'Settings',
                     ),
                   ],
                 ),
@@ -84,6 +89,9 @@ class _HomeScreenState extends State<HomeScreen> {
           Column(
             children: <Widget>[Text("Jobs Page")],
           ),
+          Column(
+            children: <Widget>[Text("Settings Page")],
+          ),
         ],
       );
 
@@ -95,8 +103,25 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         child: Card(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: item.image != null && item.image.isNotEmpty
+                    ? Image.network(
+                        item.image,
+                        fit: BoxFit.contain,
+                        height: 200,
+                      )
+                    : Image(
+                        height: 200,
+                        fit: BoxFit.contain,
+                        image: AssetImage(
+                          _getImagePath(item.link),
+                        ),
+                      ),
+              ),
               item.image != null && item.image.isNotEmpty
                   ? Image.network(
                 item.image,
@@ -126,7 +151,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(item.title),
+                child: Text(
+                  item.title,
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ],
           ),
@@ -137,10 +168,10 @@ class _HomeScreenState extends State<HomeScreen> {
     final fetcher = FeedFetcher(url);
     final feed = await fetcher.fetch();
 
-    this.setState(() =>
-    {
-    articles.addAll(feed.items),
-    });
+    this.setState(() => {
+          articles.addAll(feed.items),
+          articles.shuffle(),
+        });
   }
 
   void _getNews() {
@@ -151,6 +182,8 @@ class _HomeScreenState extends State<HomeScreen> {
     _getMediumDartLang();
     _getStackoverflowFlutter();
     _getStackoverflowDart();
+    _getGitHubPullIssues();
+    _getGitHubPullRequests();
 
     this.setState(() => isLoading = false);
   }
@@ -173,6 +206,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _getStackoverflowDart() {
     _fetchItems('https://stackoverflow.com/feeds/tag/dart');
+  }
+
+  void _getGitHubPullRequests() {
+    _fetchItems('http://pullfeed.co/feeds/flutter/flutter');
+  }
+
+  void _getGitHubPullIssues() {
+    _fetchItems('https://rsshub.app/github/issue/flutter/flutter');
   }
 
   void _getJobsPosts() async {
