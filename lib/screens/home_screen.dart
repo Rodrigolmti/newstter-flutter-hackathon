@@ -50,8 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        // backgroundColor: Colors.red,
-        // bottom:
       );
 
   Widget _buildBody() => TabBarView(
@@ -69,16 +67,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         fit: BoxFit.cover,
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.only(
+                          top: 8.0,
+                          left: 8.0,
+                        ),
                         child: Text(
                           'TAG',
-                          textAlign: TextAlign.left,
-                          // style: TextStyle(),
+                          style: TextStyle(
+                            fontSize: 11.0,
+                            color: Colors.blueGrey,
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('Lorem ipsum set dolor amet '),
+                        child: Text('Lorem ipsum set dolor amet'),
                       ),
                     ],
                   ),
