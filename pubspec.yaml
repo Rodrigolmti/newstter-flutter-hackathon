@@ -26,6 +26,7 @@ dependencies:
   http: any
   sqflite: any
   webview_flutter: ^0.3.0
+  path_provider: ^0.4.1
   hack19: 1.0.1
 
 dev_dependencies:
