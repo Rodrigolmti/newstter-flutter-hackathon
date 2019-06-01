@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hack19/hack19.dart';
 
 import 'detai_screen.dart';
 
@@ -8,6 +9,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final articles = [];
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+
+    _getMediumPosts();
   }
 
   Widget _buildAppBar() =>
@@ -108,4 +112,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       );
+
+  void _getMediumPosts() async {
+    final fetcher = FeedFetcher('https://medium.com/feed/flutter');
+    final feed = await fetcher.fetch();
+
+    print(feed.title);
+    for (var feedItem in feed.items) {
+      print(feedItem.title);
+    }
+  }
 }
