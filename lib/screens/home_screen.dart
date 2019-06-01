@@ -8,8 +8,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  final NewsRepository newsRepository = NewsRepositoryImpl();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,13 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    newsRepository.getFeedFromMedium().then((posts) {
-      posts.forEach((post) =>   print(post.title));
-    });
   }
 
-  Widget _buildAppBar() =>
-      PreferredSize(
+  Widget _buildAppBar() => PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight + 30),
         child: Container(
           color: Colors.red,
@@ -60,8 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
         // bottom:
       );
 
-  Widget _buildBody() =>
-      TabBarView(
+  Widget _buildBody() => TabBarView(
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
