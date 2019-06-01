@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hack19/hack19.dart';
 import 'package:newstter/screens/Jobs/JobList_screen.dart';
+import 'package:hack19/src/FeedItem.dart' show FeedItem;
+
+import 'detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -8,7 +11,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final articles = [];
+  List<FeedItem> articles = [];
+  List<FeedItem> jobs = [];
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
-    _getMediumPosts();
+    _getNews();
+    _getJobsPosts();
   }
 
   Widget _buildAppBar() => PreferredSize(
@@ -41,8 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       text: 'News',
                     ),
                     Tab(
-                      icon: Icon(Icons.cast),
-                      text: 'Recommendations',
+                      icon: Icon(Icons.favorite),
+                      text: 'Favorites',
                     ),
                     Tab(
                       icon: Icon(Icons.work),
@@ -60,59 +65,137 @@ class _HomeScreenState extends State<HomeScreen> {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ListView(
-              children: <Widget>[
-                Card(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Image.network(
-                        'https://cdn-images-1.medium.com/max/1600/1*6xT0ZOACZCdy_61tTJ3r1Q.png',
-                        fit: BoxFit.cover,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 8.0,
-                          left: 8.0,
-                        ),
-                        child: Text(
-                          'TAG',
-                          style: TextStyle(
-                            fontSize: 11.0,
-                            color: Colors.blueGrey,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: <Widget>[
-                            Text('Lorem ipsum set dolor amet'),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            child: ListView.builder(
+              itemCount: articles.length,
+              itemBuilder: (BuildContext ctxt, int index) {
+                return _newsCard(
+                  articles[index],
+                );
+              },
             ),
           ),
           Column(
             children: <Widget>[Text("Recommendations Page")],
           ),
           Column(
-            children: [JobList()],
+            children: [JobList()], 
           ),
         ],
       );
 
-  void _getMediumPosts() async {
-    final fetcher = FeedFetcher('https://medium.com/feed/flutter');
+  Widget _newsCard(FeedItem item) => GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => DetailScreen()));
+        },
+        child: Card(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              item.image != null && item.image.isNotEmpty
+                  ? Image.network(
+                      item.image,
+                      fit: BoxFit.cover,
+                    )
+                  : Image(
+                      image: AssetImage(
+                        _getImagePath(item.link),
+                      ),
+                    ),
+              // : Image(
+              //     _getImagePath(item.link),
+              //   ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 8.0,
+                  left: 8.0,
+                ),
+                child: Text(
+                  _getPostOrigin(item.link),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: Colors.blueGrey,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(item.title),
+              ),
+            ],
+          ),
+        ),
+      );
+
+  void _fetchItems(String url) async {
+    final fetcher = FeedFetcher(url);
     final feed = await fetcher.fetch();
 
-    print(feed.title);
-    for (var feedItem in feed.items) {
-      print(feedItem.title);
+    this.setState(() => {
+          articles.addAll(feed.items),
+        });
+  }
+
+  void _getNews() {
+    _getMediumPosts();
+    _getMediumFlutterCommunity();
+    _getMediumDartLang();
+    _getStackoverflowFlutter();
+    _getStackoverflowDart();
+  }
+
+  void _getMediumPosts() {
+    _fetchItems('https://medium.com/feed/flutter');
+  }
+
+  void _getMediumFlutterCommunity() {
+    _fetchItems('https://medium.com/feed/flutter-community');
+  }
+
+  void _getMediumDartLang() {
+    _fetchItems('https://medium.com/feed/dartlang');
+  }
+
+  void _getStackoverflowFlutter() {
+    _fetchItems('https://stackoverflow.com/feeds/tag/flutter');
+  }
+
+  void _getStackoverflowDart() {
+    _fetchItems('https://stackoverflow.com/feeds/tag/dart');
+  }
+
+  void _getJobsPosts() async {
+    final fetcher =
+        FeedFetcher('"https://stackoverflow.com/jobs/feed?q=flutter"');
+    final job = await fetcher.fetch();
+
+    this.setState(() => {jobs = job.items});
+  }
+
+  String _getImagePath(String url) {
+    final postOrigin = _getPostOrigin(url);
+
+    switch (postOrigin) {
+      case 'Medium':
+        return 'assets/medium.jpeg';
+      case 'Stack Overflow':
+        return 'assets/stack_overflow.png';
+      case 'GitHub':
+        return 'assets/github.jpg';
+      default:
+        return 'assets/medium.jpeg';
     }
+  }
+
+  String _getPostOrigin(String url) {
+    if (url.contains('medium')) {
+      return 'Medium';
+    } else if (url.contains('stackoverflow')) {
+      return 'Stack Overflow';
+    } else if (url.contains('github')) {
+      return 'GitHub';
+    }
+
+    return 'None';
   }
 }
