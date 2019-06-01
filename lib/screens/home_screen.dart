@@ -78,6 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: <Widget>[
                           Image.network(
                             'https://cdn-images-1.medium.com/max/1600/1*6xT0ZOACZCdy_61tTJ3r1Q.png',
+
                             fit: BoxFit.cover,
                           ),
                           Padding(
