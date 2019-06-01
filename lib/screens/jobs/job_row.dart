@@ -10,19 +10,19 @@ class JobRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final jobCard = new Card(
+    final jobCard = Card(
         // margin: const EdgeInsets.only(left: 6.0, right: 6.0),
-        child: new Container(
+        child: Container(
             margin: const EdgeInsets.only(top: 16.0, left: 16.0),
-            constraints: new BoxConstraints.expand(),
-            child: new Column(
+            constraints: BoxConstraints.expand(),
+            child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  new Text(job.title, style: Theme.TextStyles.jobTitle),
+                  Text(job.title, style: Theme.TextStyles.jobTitle),
                 ])));
 
-    return new Container(
-      child: new FlatButton(
+    return Container(
+      child: FlatButton(
         onPressed: () {
           Navigator.push(
             context,
@@ -31,7 +31,7 @@ class JobRow extends StatelessWidget {
             ),
           );
         },
-        child: new Stack(
+        child: Stack(
           children: <Widget>[jobCard],
         ),
       ),
