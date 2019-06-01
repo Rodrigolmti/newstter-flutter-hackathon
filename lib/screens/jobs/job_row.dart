@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newstter/Models/Jobs/Job.dart';
 import 'package:newstter/Theme.dart' as Theme;
+import 'package:newstter/screens/detail_screen.dart';
 
 class JobRow extends StatelessWidget {
   final Job job;
@@ -9,31 +10,31 @@ class JobRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final jobCard = new Card(
+    final jobCard = Card(
         // margin: const EdgeInsets.only(left: 6.0, right: 6.0),
-        child: new Container(
+        child: Container(
             margin: const EdgeInsets.only(top: 16.0, left: 16.0),
-            constraints: new BoxConstraints.expand(),
-            child: new Column(
+            constraints: BoxConstraints.expand(),
+            child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  new Text(job.title, style: Theme.TextStyles.jobTitle),
+                  Text(job.title, style: Theme.TextStyles.jobTitle),
                 ])));
 
-    return new Container(
-      height: 80.0,
-      // margin: const EdgeInsets.only(top: 16.0, bottom: 8.0),
-      child: new FlatButton(
-        onPressed: () => _navigateTo(context, job.url),
-        child: new Stack(
+    return Container(
+      child: FlatButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DetailScreen(job.title, job.url),
+            ),
+          );
+        },
+        child: Stack(
           children: <Widget>[jobCard],
         ),
       ),
     );
-  }
-
-  _navigateTo(context, String url) {
-    //TODO: Implement open the page
-    print("Open the page: $url");
   }
 }
