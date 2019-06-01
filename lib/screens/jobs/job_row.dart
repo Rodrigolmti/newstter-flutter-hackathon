@@ -9,19 +9,8 @@ class JobRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final jobCard = new Container(
-        margin: const EdgeInsets.only(left: 6.0, right: 6.0),
-        decoration: new BoxDecoration(
-          color: Colors.lightBlue,
-          shape: BoxShape.rectangle,
-          borderRadius: new BorderRadius.circular(8.0),
-          boxShadow: <BoxShadow>[
-            new BoxShadow(
-                color: Colors.black,
-                blurRadius: 10.0,
-                offset: new Offset(0.0, 10.0))
-          ],
-        ),
+    final jobCard = new Card(
+        // margin: const EdgeInsets.only(left: 6.0, right: 6.0),
         child: new Container(
             margin: const EdgeInsets.only(top: 16.0, left: 16.0),
             constraints: new BoxConstraints.expand(),
@@ -32,8 +21,8 @@ class JobRow extends StatelessWidget {
                 ])));
 
     return new Container(
-      height: 40.0,
-      margin: const EdgeInsets.only(top: 16.0, bottom: 8.0),
+      height: 80.0,
+      // margin: const EdgeInsets.only(top: 16.0, bottom: 8.0),
       child: new FlatButton(
         onPressed: () => _navigateTo(context, job.url),
         child: new Stack(
