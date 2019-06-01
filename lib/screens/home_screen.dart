@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hack19/hack19.dart';
 
-import 'detai_screen.dart';
+import 'detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
