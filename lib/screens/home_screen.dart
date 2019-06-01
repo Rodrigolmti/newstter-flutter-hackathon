@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newstter/data/news_repository.dart';
+import 'package:hack19/hack19.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -7,8 +8,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   final NewsRepository newsRepository = NewsRepositoryImpl();
+
+  final articles = [];
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +24,15 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+
+    _getMediumPosts();
+
     newsRepository.getFeedFromMedium().then((posts) {
-      posts.forEach((post) =>   print(post.title));
+      posts.forEach((post) => print(post.title));
     });
   }
 
-  Widget _buildAppBar() =>
-      PreferredSize(
+  Widget _buildAppBar() => PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight + 30),
         child: Container(
           color: Colors.red,
@@ -58,8 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
 
-  Widget _buildBody() =>
-      TabBarView(
+  Widget _buildBody() => TabBarView(
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -88,7 +91,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('Lorem ipsum set dolor amet'),
+                        child: Row(
+                          children: <Widget>[
+                            Text('Lorem ipsum set dolor amet'),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -104,4 +111,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       );
+
+  void _getMediumPosts() async {
+    final fetcher = FeedFetcher('https://medium.com/feed/flutter');
+    final feed = await fetcher.fetch();
+
+    print(feed.title);
+    for (var feedItem in feed.items) {
+      print(feedItem.title);
+    }
+  }
 }
