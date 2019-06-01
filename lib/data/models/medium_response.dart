@@ -13,7 +13,7 @@ class MediumResponse {
 class Post {
   String id;
   String title;
-  String createdAt;
+  int createdAt;
 
   Post({this.id, this.title, this.createdAt});
 
