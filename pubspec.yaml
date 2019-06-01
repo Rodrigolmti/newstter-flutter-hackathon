@@ -25,7 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   http: any
   sqflite: any
-  webview_flutter: ^0.3.0
+  flutter_webview_plugin: any
   hack19: 1.0.1
 
 dev_dependencies:

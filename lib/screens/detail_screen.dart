@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hack19/src/FeedItem.dart' show FeedItem;
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class DetailScreen extends StatelessWidget {

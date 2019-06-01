@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hack19/hack19.dart';
-import 'package:newstter/screens/Jobs/JobList_screen.dart';
+import 'package:newstter/screens/jobs/job_list_screen.dart';
 import 'package:hack19/src/FeedItem.dart' show FeedItem;
 import 'package:newstter/screens/News/news_screen.dart';
 

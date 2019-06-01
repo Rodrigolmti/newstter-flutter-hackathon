@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newstter/Models/Jobs/Jobs.dart';
-import 'package:newstter/screens/Jobs/JobRow.dart';
+import 'package:newstter/screens/jobs/job_row.dart';
 import 'package:newstter/Theme.dart' as Theme;
 
 class JobList extends StatelessWidget {
