@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
-    _getMediumPosts();
+    _getNews();
   }
 
   Widget _buildAppBar() => PreferredSize(
@@ -47,8 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       text: 'News',
                     ),
                     Tab(
-                      icon: Icon(Icons.cast),
-                      text: 'Recommendations',
+                      icon: Icon(Icons.favorite),
+                      text: 'Favorites',
                     ),
                     Tab(
                       icon: Icon(Icons.work),
@@ -104,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   left: 8.0,
                 ),
                 child: Text(
-                  'Medium',
+                  _getPostOrigin(item.link),
                   style: TextStyle(
                     fontSize: 11.0,
                     color: Colors.blueGrey,
@@ -124,15 +124,52 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
 
-  void _getMediumPosts() async {
-    final fetcher = FeedFetcher('https://medium.com/feed/flutter');
+  void _fetchItems(String url) async {
+    final fetcher = FeedFetcher(url);
     final feed = await fetcher.fetch();
 
     this.setState(() => {
-          articles = feed.items,
+          articles.addAll(feed.items),
         });
-    // for (var feedItem in feed.items) {
-    //   print(feedItem.title);
-    // }
+  }
+
+  void _getNews() {
+    _getMediumPosts();
+    _getMediumFlutterCommunity();
+    _getMediumDartLang();
+    _getStackoverflowFlutter();
+    _getStackoverflowDart();
+  }
+
+  void _getMediumPosts() {
+    _fetchItems('https://medium.com/feed/flutter');
+  }
+
+  void _getMediumFlutterCommunity() {
+    _fetchItems('https://medium.com/feed/flutter-community');
+  }
+
+  void _getMediumDartLang() {
+    _fetchItems('https://medium.com/feed/dartlang');
+  }
+
+  void _getStackoverflowFlutter() {
+    _fetchItems('https://stackoverflow.com/feeds/tag/flutter');
+  }
+
+  void _getStackoverflowDart() {
+    _fetchItems('https://stackoverflow.com/feeds/tag/dart');
+  }
+
+  String _getPostOrigin(String url) {
+    if (url.contains('medium')) {
+      return 'Medium';
+    } else if (url.contains('stackoverflow')) {
+      return 'Stack Overflow';
+    } else if (url.contains('github')) {
+      return 'GitHub';
+    }
+
+    return 'None';
   }
 }
