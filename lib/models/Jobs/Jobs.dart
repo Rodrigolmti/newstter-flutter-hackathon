@@ -5,6 +5,7 @@ class JobDao {
     const Job(
         id: "1",
         title: "Flutter developer",
+        company: "Any",
         location: "Denver, CO, USA",
         url: "https://flutterjobs.info/job/hoDcPi6N2wQzQNLjjGOt/",
         description:
@@ -13,6 +14,7 @@ class JobDao {
     const Job(
         id: "2",
         title: "Flutter Paid Internship",
+        company: "Any",
         location: "Basel, Switzerland",
         url: "https://flutterjobs.info/job/ciahzzOWfCeJGufeUqIj/",
         description:
@@ -21,6 +23,7 @@ class JobDao {
     const Job(
         id: "3",
         title: "Flutter Mobile App Developer (20-40%)",
+        company: "Any",
         location: "Zurich, Switzerland",
         url: "https://flutterjobs.info/job/-LfR7KAhn00zP6DjDZWr/",
         description:
@@ -30,11 +33,13 @@ class JobDao {
         id: "4",
         title: "Flutter Remote",
         url: "https://flutterjobs.info/job/ciahzzOWfCeJGufeUqIaaaj/",
+        company: "Any",
         description: "Only Remote",
         canBeRemote: true),
     const Job(
         id: "5",
         title: "Mobile Software Engineer",
+        company: "Any",
         url:
             "https://www.linkedin.com/jobs/view/1296771060/?eBP=NotAvailableFromVoyagerAPI&recommendedFlavor=IN_NETWORK&refId=fa230b7d-c980-4c86-9b96-55e5e64b8a77&trk=d_flagship3_search_srp_jobs&lipi=urn%3Ali%3Apage%3Ad_flagship3_search_srp_jobs%3BJpdZYUL6QOep0XqZvHJqmg%3D%3D&licu=urn%3Ali%3Acontrol%3Ad_flagship3_search_srp_jobs-A_jobssearch_job_result_click&lici=6LC3MTsVSR2xHl72syCMdQ%3D%3D",
         description:
@@ -43,6 +48,7 @@ class JobDao {
     const Job(
         id: "6",
         title: "Flutter developer",
+        company: "Any",
         location: "Denver, CO, USA",
         url: "https://flutterjobs.info/job/hoDcPi6N2wQzQNLjjGOt/",
         description:
@@ -51,6 +57,7 @@ class JobDao {
     const Job(
         id: "7",
         title: "Flutter Paid Internship",
+        company: "Any",
         location: "Basel, Switzerland",
         url: "https://flutterjobs.info/job/ciahzzOWfCeJGufeUqIj/",
         description:
@@ -59,6 +66,7 @@ class JobDao {
     const Job(
         id: "8",
         title: "Flutter Mobile App Developer (20-40%)",
+        company: "Any",
         location: "Zurich, Switzerland",
         url: "https://flutterjobs.info/job/-LfR7KAhn00zP6DjDZWr/",
         description:
@@ -67,12 +75,14 @@ class JobDao {
     const Job(
         id: "9",
         title: "Flutter Remote",
+        company: "Any",
         url: "https://flutterjobs.info/job/ciahzzOWfCeJGufeUqIaaaj/",
         description: "Only Remote",
         canBeRemote: true),
     const Job(
         id: "10",
         title: "Mobile Software Engineer",
+        company: "Any",
         url:
             "https://www.linkedin.com/jobs/view/1296771060/?eBP=NotAvailableFromVoyagerAPI&recommendedFlavor=IN_NETWORK&refId=fa230b7d-c980-4c86-9b96-55e5e64b8a77&trk=d_flagship3_search_srp_jobs&lipi=urn%3Ali%3Apage%3Ad_flagship3_search_srp_jobs%3BJpdZYUL6QOep0XqZvHJqmg%3D%3D&licu=urn%3Ali%3Acontrol%3Ad_flagship3_search_srp_jobs-A_jobssearch_job_result_click&lici=6LC3MTsVSR2xHl72syCMdQ%3D%3D",
         description:

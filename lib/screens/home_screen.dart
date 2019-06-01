@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hack19/hack19.dart';
-import 'package:newstter/screens/Jobs/JobList_screen.dart';
+import 'package:newstter/screens/jobs/job_list_screen.dart';
 import 'package:hack19/src/FeedItem.dart' show FeedItem;
 import 'package:newstter/screens/News/news_screen.dart';
 import 'package:newstter/screens/favorites/favorites_screen.dart';
@@ -51,10 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       icon: Icon(Icons.work),
                       text: 'Jobs',
                     ),
-                    Tab(
-                      icon: Icon(Icons.settings),
-                      text: 'Settings',
-                    ),
                   ],
                 ),
               ],
@@ -69,9 +65,6 @@ class _HomeScreenState extends State<HomeScreen> {
           FavoritesScreen(),
           Column(
             children: [JobList()],
-          ),
-          Column(
-            children: <Widget>[Text("Settings Page")],
           ),
         ],
       );

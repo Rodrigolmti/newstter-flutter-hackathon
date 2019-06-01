@@ -42,16 +42,19 @@ class _NewsScreenState extends State<NewsScreen> {
         ),
       );
 
-  Widget _newsCard(FeedItem item, bool favorited) => GestureDetector(
+  Widget _newsCard(FeedItem item) => GestureDetector(
         onTap: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DetailScreen(item),
+              builder: (context) => DetailScreen(item.title, item.link),
             ),
           );
         },
         child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.max,
@@ -111,7 +114,7 @@ class _NewsScreenState extends State<NewsScreen> {
                 child: Text(
                   item.title,
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
