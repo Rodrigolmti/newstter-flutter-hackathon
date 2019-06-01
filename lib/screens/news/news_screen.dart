@@ -82,7 +82,7 @@ class _NewsScreenState extends State<NewsScreen> {
                       _getPostOrigin(item.link),
                       style: TextStyle(
                         fontSize: 11.0,
-                        color: Colors.blueGrey,
+                        color: _getPostOriginColor(item.link),
                       ),
                     ),
                     Container(
@@ -99,7 +99,7 @@ class _NewsScreenState extends State<NewsScreen> {
                 child: Text(
                   item.title,
                   style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -187,6 +187,21 @@ class _NewsScreenState extends State<NewsScreen> {
     }
 
     return 'None';
+  }
+
+  Color _getPostOriginColor(String url) {
+    final postOrigin = _getPostOrigin(url);
+
+    switch (postOrigin) {
+      case 'Medium':
+        return Colors.green;
+      case 'Stack Overflow':
+        return Colors.orange;
+      case 'GitHub':
+        return Colors.blueAccent;
+      default:
+        return Colors.black;
+    }
   }
 
   @override
