@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'detai_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -21,7 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  Widget _buildAppBar() => PreferredSize(
+  Widget _buildAppBar() =>
+      PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight + 30),
         child: Container(
           color: Colors.red,
@@ -51,40 +54,49 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
 
-  Widget _buildBody() => TabBarView(
+  Widget _buildBody() =>
+      TabBarView(
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListView(
               children: <Widget>[
-                Card(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Image.network(
-                        'https://cdn-images-1.medium.com/max/1600/1*6xT0ZOACZCdy_61tTJ3r1Q.png',
-                        fit: BoxFit.cover,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 8.0,
-                          left: 8.0,
-                        ),
-                        child: Text(
-                          'TAG',
-                          style: TextStyle(
-                            fontSize: 11.0,
-                            color: Colors.blueGrey,
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DetailScreen()));
+                    },
+                    child: Card(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Image.network(
+                            'https://cdn-images-1.medium.com/max/1600/1*6xT0ZOACZCdy_61tTJ3r1Q.png',
+                            fit: BoxFit.cover,
                           ),
-                        ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 8.0,
+                              left: 8.0,
+                            ),
+                            child: Text(
+                              'TAG',
+                              style: TextStyle(
+                                fontSize: 11.0,
+                                color: Colors.blueGrey,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('Lorem ipsum set dolor amet'),
+                          ),
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('Lorem ipsum set dolor amet'),
-                      ),
-                    ],
-                  ),
-                ),
+                    ),
+                )
               ],
             ),
           ),
