@@ -33,12 +33,13 @@ class _NewsScreenState extends State<NewsScreen> {
           itemBuilder: (BuildContext ctxt, int index) {
             return _newsCard(
               articles[index],
+              false,
             );
           },
         ),
       );
 
-  Widget _newsCard(FeedItem item) => GestureDetector(
+  Widget _newsCard(FeedItem item, bool favorited) => GestureDetector(
         onTap: () {
           Navigator.push(
             context,
@@ -72,13 +73,25 @@ class _NewsScreenState extends State<NewsScreen> {
                 padding: const EdgeInsets.only(
                   top: 8.0,
                   left: 8.0,
+                  right: 16.0,
                 ),
-                child: Text(
-                  _getPostOrigin(item.link),
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    color: Colors.blueGrey,
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      _getPostOrigin(item.link),
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Colors.blueGrey,
+                      ),
+                    ),
+                    Container(
+                      child: Icon(
+                        Icons.favorite_border,
+                        color: Colors.blueGrey,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Padding(
