@@ -11,10 +11,14 @@ class _NewstterAppState extends State<NewstterApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.indigo,
-        ),
-        home: HomeScreen());
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.indigo,
+      ),
+      home: DefaultTabController(
+        length: 3,
+        child: HomeScreen(),
+      ),
+    );
   }
 }
