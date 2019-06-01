@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:newstter/data/news_repository.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
