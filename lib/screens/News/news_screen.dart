@@ -13,6 +13,7 @@ class NewsScreen extends StatefulWidget {
 
 class _NewsScreenState extends State<NewsScreen> {
   List<FeedItem> articles = [];
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -21,7 +22,10 @@ class _NewsScreenState extends State<NewsScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => Padding(
+  Widget build(BuildContext context) =>
+      isLoading ? _getLoadingWidget() : _buildBody();
+
+  Widget _buildBody() => Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
           itemCount: articles.length,
@@ -91,6 +95,8 @@ class _NewsScreenState extends State<NewsScreen> {
         ),
       );
 
+  Widget _getLoadingWidget() => Center(child: CircularProgressIndicator());
+
   void _getNews() {
     _getMediumPosts();
     _getMediumFlutterCommunity();
@@ -99,6 +105,9 @@ class _NewsScreenState extends State<NewsScreen> {
     _getStackoverflowDart();
     _getGitHubPullIssues();
     _getGitHubPullRequests();
+    this.setState(() => {
+          isLoading = false,
+        });
   }
 
   void _fetchItems(String url) async {

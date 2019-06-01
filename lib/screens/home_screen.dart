@@ -4,8 +4,6 @@ import 'package:newstter/screens/Jobs/JobList_screen.dart';
 import 'package:hack19/src/FeedItem.dart' show FeedItem;
 import 'package:newstter/screens/News/news_screen.dart';
 
-import 'detail_screen.dart';
-
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -14,14 +12,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<FeedItem> jobs = [];
 
-  bool isLoading = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
       backgroundColor: Colors.white,
-      body: isLoading ? _getLoadingWidget() : _buildBody(),
+      body: _buildBody(),
     );
   }
 
@@ -65,8 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       );
-
-  Widget _getLoadingWidget() => Center(child: CircularProgressIndicator());
 
   Widget _buildBody() => TabBarView(
         children: <Widget>[
