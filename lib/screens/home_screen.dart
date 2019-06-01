@@ -16,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFFecf0f1),
       body: _buildBody(),
     );
   }
@@ -50,10 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       icon: Icon(Icons.work),
                       text: 'Jobs',
                     ),
-                    Tab(
-                      icon: Icon(Icons.settings),
-                      text: 'Settings',
-                    ),
                   ],
                 ),
               ],
@@ -70,9 +66,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Column(
             children: [JobList()],
-          ),
-          Column(
-            children: <Widget>[Text("Settings Page")],
           ),
         ],
       );

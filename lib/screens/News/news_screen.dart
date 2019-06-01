@@ -18,7 +18,9 @@ class _NewsScreenState extends State<NewsScreen> {
   @override
   void initState() {
     super.initState();
-    _getNews();
+    if (articles.isEmpty) {
+      _getNews();
+    }
   }
 
   @override

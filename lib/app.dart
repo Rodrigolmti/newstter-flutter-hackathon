@@ -26,7 +26,7 @@ class _NewstterAppState extends State<NewstterApp> {
         ),
       ),
       home: DefaultTabController(
-        length: 4,
+        length: 3,
         child: HomeScreen(),
       ),
     );
