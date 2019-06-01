@@ -49,8 +49,35 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildBody() => TabBarView(
         children: <Widget>[
-          Column(
-            children: <Widget>[Text("News Page")],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView(
+              children: <Widget>[
+                Card(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Image.network(
+                        'https://cdn-images-1.medium.com/max/1600/1*6xT0ZOACZCdy_61tTJ3r1Q.png',
+                        fit: BoxFit.cover,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'TAG',
+                          textAlign: TextAlign.left,
+                          // style: TextStyle(),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Lorem ipsum set dolor amet '),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
           Column(
             children: <Widget>[Text("Recommendations Page")],
