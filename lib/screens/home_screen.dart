@@ -13,12 +13,14 @@ class _HomeScreenState extends State<HomeScreen> {
   List<FeedItem> articles = [];
   List<FeedItem> jobs = [];
 
+  bool isLoading = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
       backgroundColor: Colors.white,
-      body: _buildBody(),
+      body: isLoading ? _getLoadingWidget() : _buildBody(),
     );
   }
 
@@ -27,10 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     _getNews();
-    _getJobsPosts();
   }
 
-  Widget _buildAppBar() => PreferredSize(
+  Widget _buildAppBar() =>
+      PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight + 30),
         child: Container(
           color: Colors.red,
@@ -60,7 +62,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
 
-  Widget _buildBody() => TabBarView(
+  Widget _getLoadingWidget() => Center(child: CircularProgressIndicator());
+
+  Widget _buildBody() =>
+      TabBarView(
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -82,10 +87,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       );
 
-  Widget _newsCard(FeedItem item) => GestureDetector(
+  Widget _newsCard(FeedItem item) =>
+      GestureDetector(
         onTap: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => DetailScreen()));
+              context, MaterialPageRoute(builder: (context) => DetailScreen(item)));
         },
         child: Card(
           child: Column(
@@ -93,29 +99,30 @@ class _HomeScreenState extends State<HomeScreen> {
             children: <Widget>[
               item.image != null && item.image.isNotEmpty
                   ? Image.network(
-                      item.image,
-                      fit: BoxFit.cover,
-                    )
+                item.image,
+                semanticLabel: 'Image of ' + item.link,
+                fit: BoxFit.cover,
+              )
                   : Image(
-                      image: AssetImage(
-                        _getImagePath(item.link),
+                image: AssetImage(
+                  _getImagePath(item.link),
+                ),
+              ),
+              Padding(
+                  padding: const EdgeInsets.only(
+                    top: 8.0,
+                    left: 8.0,
+                  ),
+                  child:
+                  Semantics(
+                    child: Text(
+                      _getPostOrigin(item.link),
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Colors.blueGrey,
                       ),
                     ),
-              // : Image(
-              //     _getImagePath(item.link),
-              //   ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 8.0,
-                  left: 8.0,
-                ),
-                child: Text(
-                  _getPostOrigin(item.link),
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    color: Colors.blueGrey,
-                  ),
-                ),
+                  )
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -130,17 +137,22 @@ class _HomeScreenState extends State<HomeScreen> {
     final fetcher = FeedFetcher(url);
     final feed = await fetcher.fetch();
 
-    this.setState(() => {
-          articles.addAll(feed.items),
-        });
+    this.setState(() =>
+    {
+    articles.addAll(feed.items),
+    });
   }
 
   void _getNews() {
+    this.setState(() => isLoading = true);
+
     _getMediumPosts();
     _getMediumFlutterCommunity();
     _getMediumDartLang();
     _getStackoverflowFlutter();
     _getStackoverflowDart();
+
+    this.setState(() => isLoading = false);
   }
 
   void _getMediumPosts() {
@@ -165,10 +177,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _getJobsPosts() async {
     final fetcher =
-        FeedFetcher('"https://stackoverflow.com/jobs/feed?q=flutter"');
+    FeedFetcher('"https://stackoverflow.com/jobs/feed?q=flutter"');
     final job = await fetcher.fetch();
 
-    this.setState(() => {jobs = job.items});
+    this.setState(() =>
+    {
+    jobs = job.items
+    });
   }
 
   String _getImagePath(String url) {
