@@ -123,17 +123,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
               ),
-              item.image != null && item.image.isNotEmpty
-                  ? Image.network(
-                item.image,
-                semanticLabel: 'Image of ' + item.link,
-                fit: BoxFit.cover,
-              )
-                  : Image(
-                image: AssetImage(
-                  _getImagePath(item.link),
-                ),
-              ),
               Padding(
                   padding: const EdgeInsets.only(
                     top: 8.0,
