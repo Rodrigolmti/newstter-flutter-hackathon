@@ -22,8 +22,9 @@ class _NewsScreenState extends State<NewsScreen> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      isLoading ? _getLoadingWidget() : _buildBody();
+  Widget build(BuildContext context) {
+    return isLoading ? _getLoadingWidget() : _buildBody();
+  }
 
   Widget _buildBody() => Padding(
         padding: const EdgeInsets.all(8.0),
@@ -173,5 +174,10 @@ class _NewsScreenState extends State<NewsScreen> {
     }
 
     return 'None';
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }
