@@ -11,13 +11,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<FeedItem> articles = [];
+  List<FeedItem> jobs = [];
 
   @override
   Widget build(BuildContext context) {
-    // this.setState(() => {
-    //       articles:,
-    //     });
-
     return Scaffold(
       appBar: _buildAppBar(),
       backgroundColor: Colors.white,
@@ -30,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
 
     _getNews();
+    _getJobsPosts();
   }
 
   Widget _buildAppBar() => PreferredSize(
@@ -159,6 +157,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _getStackoverflowDart() {
     _fetchItems('https://stackoverflow.com/feeds/tag/dart');
+  }
+
+  void _getJobsPosts() async {
+    final fetcher =
+        FeedFetcher('"https://stackoverflow.com/jobs/feed?q=flutter"');
+    final job = await fetcher.fetch();
+
+    this.setState(() => {jobs = job.items});
   }
 
   String _getPostOrigin(String url) {
